@@ -13,7 +13,9 @@ currentSliderPosition = 1
 sliderY = 272
 xMousePosition = 1029
 yMousePosition = 272
-startingY = 272
+firstRowY = 235
+sliderScaling = 2.55
+numberOfRows = 27
 
 print('Give excel file current directory')
 excelDirectory = input()
@@ -45,22 +47,23 @@ for strings in sortedCsubValues:
     # Calculate the difference between the ordering number of the Csub Value
     # and the current position in the SAP list.
     differencePosition = csubDictionary.csub.get(strings) - currentPosition
-    #
-    difference = differencePosition * 27
+    # Calculate the physical pixel difference, by multiplying the position
+    # in the csub file by the height of a SAP column.
+    physicalDifference = differencePosition * 27
     currentPosition += differencePosition
     print('differencePosition = ' + str(differencePosition))
     print('currentPosition - currentSliderPosition ' + str(currentPosition - currentSliderPosition))
-    if(currentPosition - currentSliderPosition >= 25):
-        yMousePosition = startingY - 20
+    if(currentPosition - currentSliderPosition >= numberOfRows):
+        yMousePosition = firstRowY
         pyautogui.moveTo(xMousePosition, sliderY)
-        sliderY += (currentPosition - currentSliderPosition) * 2.88888888
-        pyautogui.drag(0, (currentPosition - currentSliderPosition) * 2.888888888, duration = 0.2)
+        sliderY += (currentPosition - currentSliderPosition) * sliderScaling
+        pyautogui.drag(0, (currentPosition - currentSliderPosition) * sliderScaling, duration = 0.2)
         time.sleep(3)
         currentSliderPosition = currentPosition
         pyautogui.click(30, yMousePosition)
     else:
-        pyautogui.click(30, yMousePosition + difference)
-        yMousePosition += difference
+        pyautogui.click(30, yMousePosition + physicalDifference)
+        yMousePosition += physicalDifference
 
     print('Current Position = ' + str(currentPosition))
     print('Current Slider Position = ' + str(currentSliderPosition) + '\n')
