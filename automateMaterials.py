@@ -15,14 +15,16 @@ workBook = openpyxl.load_workbook(fileName + '.xlsx')
 workSheet = workBook['Materiały OPL']
 productCode = list(workSheet.columns)[1]
 
-materialsDescriptions = materials.values()
-
+materialsDescriptions = materials.keys()
 
 for product in productCode:
     for material in materialsDescriptions:
-        tuple(material)
-        if product.value in material[0] or product.value in material[1]:
-            print(product.value)
+        shortDescr = str(material[0])
+        longDescr = str(material[1])
+        if product.value is not None:
+            if product.value in shortDescr or product.value in longDescr:
+                rowSap = product.row
+                columnSap = product.column + 2
+                workSheet.cell(row=rowSap, column=columnSap).value = materials.get(material)
 
-print(productCode)
-input()
+workBook.save(fileName + 'MATERIALY.xlsx')
