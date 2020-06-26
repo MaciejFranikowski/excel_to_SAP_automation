@@ -1,16 +1,9 @@
 import openpyxl
 import os
 import re
-import pprint
+import materialsDictionary
 
-csubValueRegex = re.compile(r'(\d.(\d)?\d.\d(\d)?)')
-unsortedCsubValues = []
-currentPosition = 2
-currentSliderPosition = 1
-sliderY = 272
-xMousePosition = 1029
-yMousePosition = 272
-startingY = 272
+materials = materialsDictionary.materials.copy()
 
 print('Give materials excel file current directory')
 excelDirectory = input()
@@ -19,16 +12,17 @@ os.chdir(excelDirectory)
 print('Give the name of the file (without the extension)')
 fileName = input()
 workBook = openpyxl.load_workbook(fileName + '.xlsx')
-workSheet = workBook['Sheet1']
-#productCode = list(workSheet.columns)[1]
-#print(productCode)
-#input()
+workSheet = workBook['Materiały OPL']
+productCode = list(workSheet.columns)[1]
 
-dictonary = {}
-for row in workSheet.iter_rows(min_row=1, max_col=3, max_row=96, values_only = True):
-    t = tuple(row[:2])
-    dictonary[row[2]] = t
+materialsDescriptions = materials.values()
 
-fileObj = open('materialsDictionary.py', 'w')
-fileObj.write('materials = ' + pprint.pformat(dictonary) + '\n')
-fileObj.close()
+
+for product in productCode:
+    for material in materialsDescriptions:
+        tuple(material)
+        if product.value in material[0] or product.value in material[1]:
+            print(product.value)
+
+print(productCode)
+input()
