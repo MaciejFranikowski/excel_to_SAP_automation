@@ -1,3 +1,2 @@
-1. materiały- czytać z excela i wpisywac do tabelek.
-2. materiały- uzupełnianie numeru SAP na podstawie gotowego excela materiały pomoc.
-3. usługi- kolejny skrypt, który wpisze ilość dla danych pozycji do kolejnej tabelki
+1. materiały- uzupełnianie numeru SAP na podstawie gotowego excela materiały pomoc.
+2. usługi- kolejny skrypt, który wpisze ilość dla danych pozycji do kolejnej tabelki
