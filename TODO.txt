@@ -1,2 +1,2 @@
-1. materiały- uzupełnianie numeru SAP na podstawie gotowego excela materiały pomoc.
+1. Testowanie
 2. usługi- kolejny skrypt, który wpisze ilość dla danych pozycji do kolejnej tabelki
