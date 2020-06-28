@@ -2,11 +2,14 @@ import openpyxl
 import os
 import re
 import materialsDictionary
+import inputMaterials
+
 
 sapNumberRegex = re.compile(r'(\d\d\d\d\d\d\d\d\d\d)')
 sapNumberQuantityDictionary = {}
-
+numberOfRows = 27
 materials = materialsDictionary.materials.copy()
+
 
 print('Give materials excel file current directory')
 excelDirectory = input()
@@ -26,6 +29,9 @@ choice = int(input())
 
 print('In which column is the quantity of the material?')
 quantityCoulmn = int(input())
+
+print('Give the wareHouseNumber')
+wareHouseNumber = input()
 
 # Getting the SAP numbers from the dictionary to their correct descriptions.
 if choice == 2:
@@ -51,6 +57,9 @@ for currentRow in workSheet.values:
                 value = sapNumberQuantityDictionary.pop(mo.group())
                 value += currentRow[4]
                 sapNumberQuantityDictionary[mo.group()] = value
+
+inputMaterials.inputSapNumberQuantity(sapNumberQuantityDictionary, numberOfRows)
+inputMaterials.inputWarehouse(wareHouseNumber, numberOfRows, len(sapNumberQuantityDictionary))
 
 print(sapNumberQuantityDictionary)
 workBook.save(fileName + 'MATERIALY.xlsx')
